@@ -30,8 +30,12 @@ module.exports = (req, res) => {
             photographer: result[0].photographer,
             photographerUrl: result[0].photographer_url,
           };
+          res.setHeader(
+            "Cache-Control",
+            "s-maxage=600, stale-while-revalidate"
+          );
           res.setHeader("Content-Type", "application/json");
-          res.end(JSON.stringify(response));
+          res.status(200).json(response);
         })
         .catch((err) => {
           assert.equal(null, err);
