@@ -23,7 +23,7 @@ module.exports = (req, res) => {
         .aggregate(agg)
         .toArray()
         .then((result) => {
-          res.redirect(result[0].src.medium);
+          res.redirect(result[0].src.large);
         })
         .catch((err) => {
           assert.equal(null, err);
