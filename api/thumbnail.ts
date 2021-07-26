@@ -47,57 +47,57 @@ module.exports = async (req, res) => {
     );
   });
   const imageUrl = await imagePromise;
-  Jimp.loadFont(join(__dirname, "_files", "open-sans-64-black.fnt")).then(
-    (font) => {
-      Jimp.read(imageUrl).then((image) => {
-        Jimp.read(rectangle).then((rectangle) => {
-          let textWidth = Jimp.measureText(font, credit);
-          image
-            .cover(2000, 1500)
-            .crop(0, 1300, 2000, 200)
-            .blur(10)
-            .composite(rectangle, 0, 0, [
-              {
-                mode: Jimp.BLEND_SOURCE_OVER,
-                opacitySource: 1,
-                opacityDest: 1,
-              },
-            ])
-            .print(font, 80, 65, {
-              text: day,
-              alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
-              alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
-            })
-            .print(font, 2000 - 80 - textWidth, 65, {
-              text: credit,
-              alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
-              alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
-            })
-            .getBuffer(Jimp.AUTO, (err, buffer) => {
-              Jimp.read(buffer, (err, bottomRectangle) => {
-                Jimp.read(imageUrl).then((image) => {
-                  image
-                    .cover(2000, 1500)
-                    .composite(bottomRectangle, 0, 1300, [
-                      {
-                        mode: Jimp.BLEND_SOURCE_OVER,
-                        opacitySource: 1,
-                        opacityDest: 1,
-                      },
-                    ])
-                    .getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
-                      res.setHeader(
-                        "Cache-Control",
-                        "s-maxage=600, stale-while-revalidate"
-                      );
-                      res.setHeader("Content-Type", Jimp.MIME_JPEG);
-                      res.send(buffer);
-                    });
-                });
+  Jimp.loadFont(
+    join(__dirname, "_files", "open-sans-64-black", "open-sans-64-black.fnt")
+  ).then((font) => {
+    Jimp.read(imageUrl).then((image) => {
+      Jimp.read(rectangle).then((rectangle) => {
+        let textWidth = Jimp.measureText(font, credit);
+        image
+          .cover(2000, 1500)
+          .crop(0, 1300, 2000, 200)
+          .blur(10)
+          .composite(rectangle, 0, 0, [
+            {
+              mode: Jimp.BLEND_SOURCE_OVER,
+              opacitySource: 1,
+              opacityDest: 1,
+            },
+          ])
+          .print(font, 80, 65, {
+            text: day,
+            alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
+            alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+          })
+          .print(font, 2000 - 80 - textWidth, 65, {
+            text: credit,
+            alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
+            alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+          })
+          .getBuffer(Jimp.AUTO, (err, buffer) => {
+            Jimp.read(buffer, (err, bottomRectangle) => {
+              Jimp.read(imageUrl).then((image) => {
+                image
+                  .cover(2000, 1500)
+                  .composite(bottomRectangle, 0, 1300, [
+                    {
+                      mode: Jimp.BLEND_SOURCE_OVER,
+                      opacitySource: 1,
+                      opacityDest: 1,
+                    },
+                  ])
+                  .getBuffer(Jimp.MIME_JPEG, function (err, buffer) {
+                    res.setHeader(
+                      "Cache-Control",
+                      "s-maxage=600, stale-while-revalidate"
+                    );
+                    res.setHeader("Content-Type", Jimp.MIME_JPEG);
+                    res.send(buffer);
+                  });
               });
             });
-        });
+          });
       });
-    }
-  );
+    });
+  });
 };
