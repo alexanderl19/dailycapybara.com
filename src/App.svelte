@@ -32,10 +32,6 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap"
     rel="stylesheet"
   />
-  <meta property="og:title" content="The Daily Capybara" />
-  <meta property="og:site_name" content={day} />
-  <meta property="og:image" content="https://dailycapybara.com/api/thumbnail" />
-  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main>
