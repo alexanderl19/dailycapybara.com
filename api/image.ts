@@ -19,10 +19,15 @@ module.exports = (req, res) => {
       const coll = client
         .db(process.env.MONGO_DB)
         .collection(process.env.MONGO_COLLECTION);
-      coll.aggregate(agg, (cmdErr, result) => {
-        assert.equal(null, cmdErr);
-        res.redirect(result.src.medium);
-      });
+      coll
+        .aggregate(agg)
+        .toArray()
+        .then((result) => {
+          res.redirect(result.src.medium);
+        })
+        .catch((err) => {
+          assert.equal(null, err);
+        });
       client.close();
     }
   );
