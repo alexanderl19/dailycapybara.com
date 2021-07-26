@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/thumbnail.ts": {
+      "includeFiles": "_files/**"
+    }
+  }
+}

@@ -28,6 +28,7 @@
     "vercel": "^23.0.1"
   },
   "dependencies": {
+    "jimp": "^0.16.1",
     "mongodb": "^4.0.1",
     "sirv-cli": "^1.0.0"
   }
