@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
   // ).then((font) => {
   Jimp.read(imageUrl).then((image) => {
     Jimp.read(rectangle).then((rectangle) => {
-      let textWidth = Jimp.measureText(font, credit);
+      // let textWidth = Jimp.measureText(font, credit);
       image
         .cover(2000, 1500)
         .crop(0, 1300, 2000, 200)
