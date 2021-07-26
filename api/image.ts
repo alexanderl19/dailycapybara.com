@@ -27,8 +27,10 @@ module.exports = (req, res) => {
         })
         .catch((err) => {
           assert.equal(null, err);
+        })
+        .finally(() => {
+          client.close();
         });
-      client.close();
     }
   );
 };
