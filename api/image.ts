@@ -23,7 +23,15 @@ module.exports = (req, res) => {
         .aggregate(agg)
         .toArray()
         .then((result) => {
-          res.redirect(result[0].src.large);
+          const response = {
+            date: result[0]._id.getTimestamp(),
+            url: result[0].url,
+            imageUrl: result[0].src.large,
+            photographer: result[0].photographer,
+            photographerUrl: result[0].photographer_url,
+          };
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(response));
         })
         .catch((err) => {
           assert.equal(null, err);

@@ -8,5 +8,5 @@ body {
 
 @font-face {
   font-family: "Pollyester";
-  src: url("public/Pollyester.woff") format("woff");
+  src: url("/Pollyester.woff") format("woff");
 }
